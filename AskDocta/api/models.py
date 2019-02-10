@@ -18,7 +18,7 @@ class Doctor(models.Model):
 
 
 class Patient(models.Model):
-    doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     gender = models.CharField(max_length=30)
