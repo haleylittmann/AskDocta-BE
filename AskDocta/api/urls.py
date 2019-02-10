@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from django.contrib.auth.models import Patient, Doctor
+from api.models import Patient, Doctor
 from rest_framework import routers, serializers, viewsets
 
 # Serializers define the API representation.
