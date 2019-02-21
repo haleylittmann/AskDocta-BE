@@ -1,12 +1,14 @@
 from django.conf.urls import url, include
-from api.models import Patient, Doctor
+from api.models import Request, Doctor
 from rest_framework import routers, serializers, viewsets
 
+# Need Twilio handling of texts to and from
+
 # Serializers define the API representation.
-class PatientSerializer(serializers.HyperlinkedModelSerializer):
+class RequestSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Patient
-        fields = ('first_name', 'last_name', 'gender', 'age', 'height', 'weight')
+        model = Request
+        fields = ('name', 'message', 'created_at')
 
 class DoctorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -14,9 +16,9 @@ class DoctorSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('first_name', 'last_name', 'specialty', 'gender')
 
 # ViewSets define the view behavior.
-class PatientViewSet(viewsets.ModelViewSet):
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
+class RequestViewSet(viewsets.ModelViewSet):
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer
 
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = Doctor.objects.all()
@@ -24,7 +26,7 @@ class DoctorViewSet(viewsets.ModelViewSet):
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'patients', PatientViewSet)
+router.register(r'requests', RequestViewSet)
 router.register(r'doctors', DoctorViewSet)
 
 # Wire up our API using automatic URL routing.
