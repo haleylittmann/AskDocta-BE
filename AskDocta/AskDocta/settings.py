@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'api',
     'rest_framework',
+    'django_twilio',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,10 +79,10 @@ WSGI_APPLICATION = 'AskDocta.wsgi.application'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'holiday_db',
+    'NAME': 'askdocta',
     'USER': os.environ['DB_USER'],
     'PASSWORD': os.environ['DB_PASS'],
-    'HOST': 'holiday-db.cyh0tl9nbug8.us-east-1.rds.amazonaws.com',
+    'HOST': 'askdocta.cyh0tl9nbug8.us-east-1.rds.amazonaws.com',
     'PORT': '3306',
     }
 }
