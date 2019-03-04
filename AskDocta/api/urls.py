@@ -2,8 +2,6 @@ from django.conf.urls import url, include
 from api.models import Request, Doctor
 from rest_framework import routers, serializers, viewsets
 
-# Need Twilio handling of texts to and from
-
 # Serializers define the API representation.
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -34,4 +32,5 @@ router.register(r'doctors', DoctorViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('sms', views.sms, name='sms'),
 ]
