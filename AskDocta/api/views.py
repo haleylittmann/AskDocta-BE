@@ -3,8 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 from api.models import Request, Doctor
 from twilio.rest import Client
 
-account_sid = 'ACc88a893910d9ae3837607026737080ba'
-auth_token = '094be06f0e59c6a6454abb97fc37a01b'
+account_sid = os.environ['TWILIO_ID']
+auth_token = os.environ['TWILIO_SECRET']
 client = Client(account_sid, auth_token)
 # Create your views here.
 
