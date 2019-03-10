@@ -14,7 +14,6 @@ class Doctor(models.Model):
        return 'Name: %s %s, Gender: %s, Specialty: %s.' % (self.first_name, self.last_name, self.gender, self.specialty)
 
 class Request(models.Model):
-    # name = models.CharField(max_length=30)
     message = models.TextField();
     phonenumber = models.BigIntegerField();
     created_at = models.DateTimeField(auto_now_add=True);

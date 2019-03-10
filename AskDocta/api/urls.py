@@ -1,6 +1,8 @@
 from django.conf.urls import url, include
+from django.urls import path
 from api.models import Request, Doctor
 from rest_framework import routers, serializers, viewsets
+from . import views
 
 # Serializers define the API representation.
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
@@ -31,6 +33,7 @@ router.register(r'doctors', DoctorViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('sms', views.sms, name='sms'),
+    path('request/<int:request_id>', views.detail, name='detail')
 ]
