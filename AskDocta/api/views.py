@@ -2,11 +2,45 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from api.models import Request, Doctor
 from twilio.rest import Client
+from django.shortcuts import redirect
+import os
 
 account_sid = os.environ['TWILIO_ID']
 auth_token = os.environ['TWILIO_SECRET']
 client = Client(account_sid, auth_token)
 # Create your views here.
+
+def index(request):
+    requests = Request.objects.all()
+    return render(request, 'request/index.html', {'requests': requests})
+
+def detail(request, request_id):
+    try:
+        r = Request.objects.get(id=request_id)
+    except Request.DoesNotExist:
+        raise Http404("Request does not exist")
+    if request.method == "POST":
+        delVal = request.POST.get('delete')
+        if delVal:
+            message = client.messages.create(
+                body="A Doctor has accepted your request, expect a text from them soon.",
+                from_="+19809490170",
+                to=r.phonenumber
+            )
+            print(message.sid)
+            message2 = client.messages.create(
+                body="You've approved the patient request, please contact them at r.number",
+                from_="+19809490170",
+                to="+17049988351"
+            )
+            print(message2.sid)
+            r.delete()
+            return redirect('index')
+        else:
+            return redirect('index')
+            # return render(request, 'request/detail.html', {'request': r})
+    else:
+        return render(request, 'request/detail.html', {'request': r})
 
 @csrf_exempt
 def sms(request):
@@ -23,6 +57,3 @@ def sms(request):
         Request.objects.create(message=body, phonenumber=number)
     else:
         return redirect('index')
-
-def detail(request):
-    return HttpResponse("%s" % request.message)

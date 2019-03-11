@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="py-5">
+    <div class="container">
+    {% for r in requests %}
+      <div class="row py-2">
+        <div class="col-md-8">
+          <h3 class="">{{ r.message }}</h3>
+        </div>
+        <div class="col-md-4">
+            <form action="/request/{{r.id}}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="delete" value="1">
+                <button type="submit" class="btn btn-lg btn-block btn-secondary">Accept Request</button>
+            </form>
+        </div> 
+      </div>
+    {% endfor %}
+    </div>
+</div>        
+{% endblock content %}
