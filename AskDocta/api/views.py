@@ -29,7 +29,7 @@ def detail(request, request_id):
             )
             print(message.sid)
             message2 = client.messages.create(
-                body="You've approved the patient request, please contact them at r.number",
+                body="You've approved the patient request, please contact them at %s" %r.phonenumber,
                 from_="+19809490170",
                 to="+17049988351"
             )
