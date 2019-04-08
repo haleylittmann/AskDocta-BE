@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(help_text='Enter your last name', max_length=30)),
                 ('specialty', models.CharField(help_text='Enter your medical specialty (optional)', max_length=50)),
                 ('gender', models.CharField(help_text='Enter your gender (optional)', max_length=30)),
-                ('phone', phonenumber_field.modelfields.PhoneNumberField(blank=True, help_text='Enter your phone number (include country code)', max_length=128, region=None)),
+                ('phone', phonenumber_field.modelfields.PhoneNumberField(blank=True, help_text='Enter your phone number (include country code)', max_length=128)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
