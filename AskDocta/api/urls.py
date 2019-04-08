@@ -2,6 +2,8 @@ from django.conf.urls import url, include
 from django.urls import path
 from api.models import Request, Doctor
 from rest_framework import routers, serializers, viewsets
+from django.contrib import admin
+
 from . import views
 
 # Serializers define the API representation.
@@ -37,5 +39,8 @@ urlpatterns = [
     path('sms', views.sms, name='sms'),
     path('request', views.index, name='index'),
     path('', views.index, name='index'),
+    path('profile/edit', views.update_profile, name='edit'),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('request/<int:request_id>', views.detail, name='detail')
 ]

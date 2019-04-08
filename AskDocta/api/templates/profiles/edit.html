@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="py-5" style="">
+	<div class="container">
+	  <div class="row justify-content-center">
+	    <div class="p-5 col-lg-8">
+	    	<h1>Edit Profile:</h1>
+	    	<h4><b>All fields are required before you can accept requests.</b></h4>
+			<form method="post">
+			  {% csrf_token %}
+			  {{ user_form.as_p }}
+			  {{ doctor_form.as_p }}
+			  <button type="submit">Save changes</button>
+			</form>
+		</div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
