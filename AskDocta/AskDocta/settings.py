@@ -150,6 +150,3 @@ EMAIL_HOST_USER = os.environ['EMAIL_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
 DEFAULT_EMAIL_FROM = os.environ['EMAIL']
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/askdocta/static'
-STATICFILES_DIR = '/var/www/askdocta/static'
