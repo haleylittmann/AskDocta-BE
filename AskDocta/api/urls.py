@@ -3,6 +3,7 @@ from django.urls import path
 from api.models import Request, Doctor
 from rest_framework import routers, serializers, viewsets
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -42,5 +43,10 @@ urlpatterns = [
     path('profile/edit', views.update_profile, name='edit'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('request/<int:request_id>', views.detail, name='detail')
+    path('request/<int:request_id>', views.detail, name='detail'),
+    url(r'^password_reset/$', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    url(r'^password_reset/done/$', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
