@@ -1,0 +1,6 @@
+./start_gnicorn.sh: 16: exec: gunicorn: not found
+start_gnicorn.sh: 16: exec: gunicorn: not found
+-bash: gunicorn-error.log: Permission denied
+-bash: gunicorn-error.log: Permission denied
+-bash: gunicorn-error.log: Permission denied
+-bash: gunicorn-error.log: Permission denied
