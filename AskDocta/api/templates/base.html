@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://s3.amazonaws.com/askdoctastatic/theme.css" />
 </head>
 
 <body class="bg-primary">
@@ -19,7 +20,7 @@
           <b> ASKDOCTA</b>
         </a>
         <ul class="navbar-nav mx-auto"></ul>
-        <ul class="navbar-nav">sssssssssss
+        <ul class="navbar-nav">
         {% if user.is_authenticated %}
           {% if user.is_superuser %}
             <li class="nav-item"> <a class="nav-link text-white" href="/admin">View Admin Site</a> </li>
@@ -43,7 +44,7 @@
   <div class="py-3 bg-primary">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 text-center d-md-flex align-items-center text-white"> <i class="d-block fa fa-stop-circle fa-2x mr-md-5 text-secondary"></i>
+        <div class="col-md-12 text-center d-md-flex align-items-center text-white">
           <ul class="nav mx-md-auto d-flex justify-content-center">
             {% if user.is_authenticated %}
               {% if user.is_superuser %}
