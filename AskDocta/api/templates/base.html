@@ -7,11 +7,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://s3.amazonaws.com/askdoctastatic/style.css" />
-  <link rel="stylesheet" href="https://s3.amazonaws.com/askdoctastatic/theme.css" />
 </head>
 
-<body >
+<body class="bg-primary">
   <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar18">
         <span class="navbar-toggler-icon"></span>
@@ -21,7 +19,7 @@
           <b> ASKDOCTA</b>
         </a>
         <ul class="navbar-nav mx-auto"></ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav">sssssssssss
         {% if user.is_authenticated %}
           {% if user.is_superuser %}
             <li class="nav-item"> <a class="nav-link text-white" href="/admin">View Admin Site</a> </li>
@@ -36,7 +34,7 @@
       </div>
     </div>
   </nav>
-  <div id="wrap">
+  <div id="wrap" class="bg-white">
   	<div id="main" class="container clear-top">
   		{% block content %}{% endblock content %}
     </div>
