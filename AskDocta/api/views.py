@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from .forms import UserForm
 from .forms import DoctorForm
 from .forms import PatientForm
+from django.contrib import messages
 import os
 
 account_sid = os.environ['TWILIO_ID']
@@ -70,7 +71,7 @@ def new_patient(request):
             patient_form.save()
             return redirect('/')
         else:
-            messages.error(request, _('Please correct the error below.'))
+            messages.error(request, ('Please correct the error below.'))
     else:
         patient_form = PatientForm()
     return render(request, 'patient/new.html', {
@@ -99,7 +100,7 @@ def update_profile(request):
             doctor_form.save()
             return redirect('/')
         else:
-            messages.error(request, _('Please correct the error below.'))
+            messages.error(request, ('Please correct the error below.'))
     else:
         user_form = UserForm(instance=request.user)
         doctor_form = DoctorForm(instance=request.user.doctor)
