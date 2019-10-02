@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="py-5" style="">
+	<div class="container">
+	  <div class="row justify-content-center">
+	    <div class="p-5 col-lg-8">
+	    	<h1>New Patient:</h1>
+			<form method="post">
+			  {% csrf_token %}
+			  {{ patient_form.as_p }}
+			  <button type="submit">Save changes</button>
+			</form>
+		</div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

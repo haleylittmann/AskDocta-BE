@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.urls import path
-from api.models import Request, Doctor
+from api.models import Request, Doctor, Patient
 from rest_framework import routers, serializers, viewsets
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -40,7 +40,9 @@ urlpatterns = [
     # url(r'^', include(router.urls)),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('sms', views.sms, name='sms'),
-    path('request', views.index, name='index'),
+    path('patient/new', views.new_patient, name='patient'),
+    path('patient/<int:request_id>', views.patient_detail, name='patient_detail'),
+    path('patient', views.patient, name='patient'),
     path('', views.index, name='index'),
     path('profile/edit', views.update_profile, name='edit'),
     path('admin/', admin.site.urls),
@@ -51,4 +53,4 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

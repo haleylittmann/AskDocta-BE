@@ -28,6 +28,22 @@ class Request(models.Model):
         "Returns Name and "
         return '%s %s' % (self.first_name, self.last_name)
 
+class Patient(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    DOB = models.DateField();
+    GENDER_CHOICES = (('M', 'Male'), ('F', 'Female'))
+    sex = models.CharField(max_length=1, choices=GENDER_CHOICES);
+    current_issue = models.TextField();
+    length_of_issue = models.TextField();
+    recent_changes = models.TextField();
+    allergies = models.TextField();  
+    created_at = models.DateTimeField(auto_now_add=True);
+
+    def __str__(self):
+        "Returns Name and "
+        return '%s %s' % (self.first_name, self.last_name)
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

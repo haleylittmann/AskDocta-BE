@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from api.models import Request, Doctor
+from api.models import Request, Doctor, Patient
 from twilio.rest import Client
 from django.shortcuts import redirect
 from .forms import UserForm
 from .forms import DoctorForm
+from .forms import PatientForm
 import os
 
 account_sid = os.environ['TWILIO_ID']
@@ -18,8 +19,15 @@ def index(request):
         return redirect('/accounts/login')
     if not request.user.doctor.phone:
         return redirect('/profile/edit')
-    requests = Request.objects.all()
-    return render(request, 'request/index.html', {'requests': requests})
+    return render(request, 'index.html')
+
+def patient(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
+    if not request.user.doctor.phone:
+        return redirect('/profile/edit')
+    patients = Patient.objects.all()
+    return render(request, 'patient/index.html', {'patients': patients})
 
 def detail(request, request_id):
     if not request.user.is_authenticated:
@@ -52,6 +60,33 @@ def detail(request, request_id):
             # return render(request, 'request/detail.html', {'request': r})
     else:
         return render(request, 'request/detail.html', {'request': r})
+
+def new_patient(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
+    if request.method == 'POST':
+        patient_form = PatientForm(request.POST)
+        if patient_form.is_valid():
+            patient_form.save()
+            return redirect('/')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        patient_form = PatientForm()
+    return render(request, 'patient/new.html', {
+        'patient_form': patient_form,
+    })
+
+def patient_detail(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
+    if not request.user.doctor.phone:
+        return redirect('/profile/edit')
+    try:
+        p = Patient.objects.get(id=request_id)
+    except Patient.DoesNotExist:
+        raise Http404("Patient does not exist")
+    return render(request, 'patient/detail.html', {'request': p})
 
 def update_profile(request):
     if not request.user.is_authenticated:
