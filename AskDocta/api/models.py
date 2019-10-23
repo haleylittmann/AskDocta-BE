@@ -44,10 +44,27 @@ class Patient(models.Model):
         "Returns Name and "
         return '%s %s' % (self.first_name, self.last_name)
 
+class Registrar(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    phone = PhoneNumberField(blank=True, help_text="(include country code)")
+    created_at = models.DateTimeField(auto_now_add=True);
+
+    def __str__(self):
+        "Returns Name and "
+        return '%s %s' % (self.first_name, self.last_name)
+
+class Poll(models.model):
+    s3_link = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True);
+
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+def create_user_profile(sender, instance, created, doctor, **kwargs):
+    if created && doctor:
         Doctor.objects.create(user=instance)
+    else if created:
+        Registrar.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
