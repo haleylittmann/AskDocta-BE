@@ -17,6 +17,10 @@
 	                {% csrf_token %}
 	                <button type="submit" class="btn btn-lg btn-block btn-secondary">View Requests</button>
 	            </form>
+	            <form action="doctor/patients" method="get">
+	                {% csrf_token %}
+	                <button type="submit" class="btn btn-lg btn-block btn-secondary">View patients</button>
+	            </form>
 	        </div>
 	        <div class="col-md-2">
 	        </div>

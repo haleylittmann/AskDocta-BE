@@ -1,0 +1,51 @@
+[
+  {
+    "model": "api.AllergyChoice",
+    "pk": 1,
+    "fields": {
+      "description": "None"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 2,
+    "fields": {
+      "description": "Latex"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 3,
+    "fields": {
+      "description": "Penicillin"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 4,
+    "fields": {
+      "description": "Aspirin"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 5,
+    "fields": {
+      "description": "Iodine"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 6,
+    "fields": {
+      "description": "Shellfish"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 7,
+    "fields": {
+      "description": "Other"
+    }
+  }
+]

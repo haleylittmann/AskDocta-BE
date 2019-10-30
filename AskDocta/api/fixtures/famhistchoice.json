@@ -1,0 +1,30 @@
+[
+  {
+    "model": "api.FamHistChoice",
+    "pk": 1,
+    "fields": {
+      "description": "High blood pressure"
+    }
+  },
+  {
+    "model": "api.FamHistChoice",
+    "pk": 2,
+    "fields": {
+      "description": "Heart disease/heart attack"
+    }
+  },
+  {
+    "model": "api.FamHistChoice",
+    "pk": 3,
+    "fields": {
+      "description": "Diabetes"
+    }
+  },
+  {
+    "model": "api.FamHistChoice",
+    "pk": 4,
+    "fields": {
+      "description": "Arthritis"
+    }
+  }
+]

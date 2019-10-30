@@ -51,13 +51,6 @@
               {% endif %}
             </h6>
             </div>
-            <div class="col-md-4">
-                <form action="/request/{{p.id}}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="grab" value="1">
-                    <button type="submit" class="btn btn-lg btn-block btn-secondary">Accept Request</button>
-                </form>
-            </div> 
           </div>
         {% endfor %}
     {% else %}

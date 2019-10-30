@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from api.models import Request, Doctor, Patient
+from api.models import Profile, Patient
 from twilio.rest import Client
 from django.shortcuts import redirect
 from .forms import UserForm
-from .forms import DoctorForm
+from .forms import ProfileForm
 from .forms import PatientForm
 from django.contrib import messages
 import os
@@ -18,49 +18,63 @@ client = Client(account_sid, auth_token)
 def index(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
-    if not request.user.doctor.phone:
+    if not request.user.profile.phone:
         return redirect('/profile/edit')
     return render(request, 'index.html')
 
 def patient(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
-    if not request.user.doctor.phone:
+    if not request.user.profile.phone:
         return redirect('/profile/edit')
-    patients = Patient.objects.all()
+    patients = Patient.objects.all().filter(doctor__isnull=True).order_by('-severity',)
     return render(request, 'patient/index.html', {'patients': patients})
+
+def doctor_patients(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
+    if not request.user.profile.is_doctor:
+        return redirect('/accounts/login')
+    if not request.user.profile.phone:
+        return redirect('/profile/edit')
+    patients = Patient.objects.all().filter(doctor=request.user.profile.id).order_by('-severity',)
+    return render(request, 'doctor/patients.html', {'patients': patients})
 
 def detail(request, request_id):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
-    if not request.user.doctor.phone:
+    if not request.user.profile.phone:
         return redirect('/profile/edit')
     try:
-        r = Request.objects.get(id=request_id)
+        p = Patient.objects.get(id=request_id)
     except Request.DoesNotExist:
-        raise Http404("Request does not exist")
+        raise Http404("Patient does not exist")
     if request.method == "POST":
         delVal = request.POST.get('delete')
-        if delVal:
+        grabVal = request.POST.get('grab')
+        if grabVal:
+            p.doctor=request.user.profile
+            p.save()
+            return redirect('index')
+        elif delVal:
             message = client.messages.create(
                 body="A Doctor has accepted your request, expect a text from them soon.",
                 from_="+19809490170",
-                to=r.phonenumber
+                to=p.phonenumber
             )
             print(message.sid)
             message2 = client.messages.create(
                 body="You've approved the patient request, please contact them at %s" %r.phonenumber,
                 from_="+19809490170",
-                to=str(request.user.doctor.phone)
+                to=str(request.user.profile.phone)
             )
             print(message2.sid)
-            r.delete()
+            p.delete()
             return redirect('index')
         else:
             return redirect('index')
-            # return render(request, 'request/detail.html', {'request': r})
     else:
-        return render(request, 'request/detail.html', {'request': r})
+        return render(request, 'request/detail.html', {'request': p})
 
 def new_patient(request):
     if not request.user.is_authenticated:
@@ -78,13 +92,13 @@ def new_patient(request):
         'patient_form': patient_form,
     })
 
-def patient_detail(request):
+def patient_detail(request, patient_id):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
     if not request.user.doctor.phone:
         return redirect('/profile/edit')
     try:
-        p = Patient.objects.get(id=request_id)
+        p = Patient.objects.get(id=patient_id)
     except Patient.DoesNotExist:
         raise Http404("Patient does not exist")
     return render(request, 'patient/detail.html', {'request': p})
@@ -94,19 +108,19 @@ def update_profile(request):
         return redirect('/accounts/login')
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        doctor_form = DoctorForm(request.POST, instance=request.user.doctor)
-        if user_form.is_valid() and doctor_form.is_valid():
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            doctor_form.save()
+            profile_form.save()
             return redirect('/')
         else:
             messages.error(request, ('Please correct the error below.'))
     else:
         user_form = UserForm(instance=request.user)
-        doctor_form = DoctorForm(instance=request.user.doctor)
+        profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'profiles/edit.html', {
         'user_form': user_form,
-        'doctor_form': doctor_form
+        'profile_form': profile_form
     })
 
 

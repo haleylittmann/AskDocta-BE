@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.urls import path
-from api.models import Request, Doctor, Patient
+from api.models import Profile
 from rest_framework import routers, serializers, viewsets
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -43,6 +43,7 @@ urlpatterns = [
     path('patient/new', views.new_patient, name='patient'),
     path('patient/<int:request_id>', views.patient_detail, name='patient_detail'),
     path('patient', views.patient, name='patient'),
+    path('doctor/patients', views.doctor_patients, name='doctor_patient'),
     path('', views.index, name='index'),
     path('profile/edit', views.update_profile, name='edit'),
     path('admin/', admin.site.urls),

@@ -1,0 +1,176 @@
+[
+  {
+    "model": "api.AllergyChoice",
+    "pk": 1,
+    "fields": {
+      "description": "Bleeding Problems"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 2,
+    "fields": {
+      "description": "Anemia"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 3,
+    "fields": {
+      "description": "Heart disease/heart attack"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 4,
+    "fields": {
+      "description": "Atrial Fibrillation"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 5,
+    "fields": {
+      "description": "Pacemaker"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 6,
+    "fields": {
+      "description": "Lung Disease"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 7,
+    "fields": {
+      "description": "COPD/emphysema"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 8,
+    "fields": {
+      "description": "Kidney disease"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 9,
+    "fields": {
+      "description": "Liver disease"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 10,
+    "fields": {
+      "description": "Hepatitis"
+    }
+  },
+  {
+    "model": "api.AllergyChoice",
+    "pk": 11,
+    "fields": {
+      "description": "Colitis"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 12,
+    "fields": {
+      "description": "Diverticulitis"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 13,
+    "fields": {
+      "description": "Ulcers/GERD"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 14,
+    "fields": {
+      "description": "Thyroid problems"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 15,
+    "fields": {
+      "description": "Lupus"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 16,
+    "fields": {
+      "description": "Arthritis"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 17,
+    "fields": {
+      "description": "Gout"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 18,
+    "fields": {
+      "description": "Parkinson's"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 19,
+    "fields": {
+      "description": "Stroke/TIA"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 20,
+    "fields": {
+      "description": "Seizures"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 21,
+    "fields": {
+      "description": "Phlebitis/DVT (blood clot)"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 22,
+    "fields": {
+      "description": "Venereal disease"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 23,
+    "fields": {
+      "description": "Cancer"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 24,
+    "fields": {
+      "description": "Asthma"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 25,
+    "fields": {
+      "description": "Diabetes"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 26,
+    "fields": {
+      "description": "HIV or AIDS"
+    }
+  },  {
+    "model": "api.AllergyChoice",
+    "pk": 27,
+    "fields": {
+      "description": "High Cholesterol"
+    }
+  }
+]
+
