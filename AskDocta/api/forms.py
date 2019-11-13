@@ -18,7 +18,7 @@ class ProfileForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'phone')
 
 ISSUE_CHOICES = (
-        ('', 'All'),(1,'Blood'), (2, 'Cancer'),(3, 'Cardiovascular/Heart'),(4, 'Ear'),(5, 'Eye'),(6, 'Infection'),(7, 'Immune'),(8, 'Injury/Accident'),
+        (1,'Blood'), (2, 'Cancer'),(3, 'Cardiovascular/Heart'),(4, 'Ear'),(5, 'Eye'),(6, 'Infection'),(7, 'Immune'),(8, 'Injury/Accident'),
         (9, 'Mental Health'),(10, 'Metabolic/Endocrine'),(11, 'Muscle/Bone'),(12, 'Neurological'),(13, 'Oral and gastrointestinal'),
         (14, 'Renal and Urogenital'),(15, 'Reproduction/Childbirth'),(16, 'Respiratory'),(17, 'Skin'),(18, 'Stroke'),(19, 'General/Other')
     )
