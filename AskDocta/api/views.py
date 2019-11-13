@@ -32,13 +32,12 @@ def patient(request):
         return redirect('/accounts/login')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
-    if request.method == 'POST':
-        patients = Patient.objects.all().filter(doctor__isnull=True, issue=request.POST["issue"]).order_by("-severity")
-        issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
+    issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
             9:'Mental Health',10:'Metabolic/Endocrine',11:'Muscle/Bone',12:'Neurological',13:'Oral and gastrointestinal',
             14:'Renal and Urogenital',15:'Reproduction/Childbirth',16:'Respiratory',17:'Skin',18:'Stroke',19:'General/Other'}
-        sort_form = SortForm()
-        return render(request, 'patient/index.html', {'patients': patients, 'issue_dict': issue_dict, 'sort_form': sort_form})
+    sort_form = SortForm()
+    if request.method == 'POST':
+        patients = Patient.objects.all().filter(doctor__isnull=True, issue=request.POST["issue"]).order_by("-severity")
     else:
         order_by = request.GET.get('order_by')
         if order_by:
@@ -49,21 +48,30 @@ def patient(request):
         if direction == 'desc':
             ordering = '-{}'.format(ordering)
         patients = Patient.objects.all().filter(doctor__isnull=True).order_by(ordering)
-        issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
-            9:'Mental Health',10:'Metabolic/Endocrine',11:'Muscle/Bone',12:'Neurological',13:'Oral and gastrointestinal',
-            14:'Renal and Urogenital',15:'Reproduction/Childbirth',16:'Respiratory',17:'Skin',18:'Stroke',19:'General/Other'}
-        sort_form = SortForm()
-        return render(request, 'patient/index.html', {'patients': patients, 'issue_dict': issue_dict, 'sort_form': sort_form})
+    return render(request, 'patient/index.html', {'patients': patients, 'issue_dict': issue_dict, 'sort_form': sort_form})
 
 def doctor_patients(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
-    if not request.user.profile.is_doctor:
-        return redirect('/accounts/login')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
-    patients = Patient.objects.all().filter(doctor=request.user.profile.id).order_by('-severity',)
-    return render(request, 'doctor/patients.html', {'patients': patients})
+    issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
+            9:'Mental Health',10:'Metabolic/Endocrine',11:'Muscle/Bone',12:'Neurological',13:'Oral and gastrointestinal',
+            14:'Renal and Urogenital',15:'Reproduction/Childbirth',16:'Respiratory',17:'Skin',18:'Stroke',19:'General/Other'}
+    sort_form = SortForm()
+    if request.method == 'POST':
+        patients = Patient.objects.all().filter(doctor=request.user.profile.id, issue=request.POST["issue"]).order_by("-severity")
+    else:
+        order_by = request.GET.get('order_by')
+        if order_by:
+            ordering = order_by
+        else:
+            ordering = 'severity'
+        direction = request.GET.get('direction')
+        if direction == 'desc':
+            ordering = '-{}'.format(ordering)
+        patients = Patient.objects.all().filter(doctor=request.user.profile.id).order_by(ordering)
+    return render(request, 'patient/index.html', {'patients': patients, 'issue_dict': issue_dict, 'sort_form': sort_form})
 
 def detail(request, request_id):
     if not request.user.is_authenticated:
