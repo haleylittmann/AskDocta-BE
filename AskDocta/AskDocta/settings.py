@@ -25,7 +25,7 @@ SECRET_KEY = '=aa@29m&4%dd77&-8$@0c&n++a-12d9^a=lphsv=p$9ve$9tea'
 # SECRET_KEY = os.environ['APP_Key'],
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['ec2-54-234-59-142.compute-1.amazonaws.com', 'localhost', '127.0.0.1', 'askdocta.net']
 

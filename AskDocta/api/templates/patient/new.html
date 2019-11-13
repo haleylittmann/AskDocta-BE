@@ -4,12 +4,127 @@
 <div class="py-5" style="">
 	<div class="container">
 	  <div class="row justify-content-center">
-	    <div class="p-5 col-lg-8">
+	    <div class="p-5 col-lg-12">
 	    	<h1>New Patient:</h1>
 			<form method="post">
-			  {% csrf_token %}
-			  {{ patient_form.as_p }}
-			  <button type="submit">Save changes</button>
+				{% csrf_token %}
+				{{ patient_form.non_field_errors }}
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<p>{{ patient_form.first_name.errors }} 
+							<label for="{{ patient_form.first_name.id_for_label }}">First Name:</label>
+							{{ patient_form.first_name }} 
+						</p>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<p>{{ patient_form.last_name.errors }} 
+							<label for="{{ patient_form.last_name.id_for_label }}">Last Name:</label>
+							{{ patient_form.last_name }} 
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<p>{{ patient_form.height.errors }} 
+							<label for="{{ patient_form.height.id_for_label }}">Height (in cm):</label>
+							{{ patient_form.height }} 
+						</p>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<p>{{ patient_form.weight.errors }} 
+							<label for="{{ patient_form.weight.id_for_label }}">Weight (in kg):</label>
+							{{ patient_form.weight }} 
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<p>{{ patient_form.DOB.errors }} 
+							<label for="{{ patient_form.DOB.id_for_label }}">Date of Birth:</label>
+							{{ patient_form.DOB }} 
+						</p>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<p>{{ patient_form.sex.errors }} 
+							<label for="{{ patient_form.sex.id_for_label }}">Sex:</label>
+							{{ patient_form.sex }} 
+						</p>
+					</div>
+				</div>
+				<p>{{ patient_form.issue.errors }} 
+					<label for="{{ patient_form.issue.id_for_label }}">Issue:</label>
+					{{ patient_form.issue }} 
+				</p>
+				<p>
+				    {{ patient_form.other_issue.errors }}<label for="{{ patient_form.other_issue.id_for_label }}">Explain if 'General/Other':</label>
+				    {{ patient_form.other_issue }}
+				</p>
+				<p>{{ patient_form.start.errors }} 
+				    <label for="{{ patient_form.start.id_for_label }}">When did the issue start?:</label>
+				    {{ patient_form.start }} 
+				</p>
+				<p>
+				    {{ patient_form.start_details.errors }}<label for="{{ patient_form.start_details.id_for_label }}">Or in general terms (Such as "Two weeks ago"):</label>
+				    {{ patient_form.start_details }}
+				</p>
+				<p>
+				    {{ patient_form.severity.errors }}<label for="{{ patient_form.severity.id_for_label }}">How severe is your pain?:</label>
+				    {{ patient_form.severity }}
+				</p>
+				<p>
+				    {{ patient_form.allergies.errors }}<label for="{{ patient_form.allergies.id_for_label }}">Tick any allergies you have:</label>
+				    <div class="row">
+				    {% for value, text in patient_form.allergies.field.choices %}
+					  <div class="ui slider checkbox col-lg-3 col-sm-12">
+					    <input id="id_allergies_{{ forloop.counter0 }}" name="{{ patient_form.allergies.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+					    <label>{{ text }}</label>
+					  </div>
+					{% endfor %}
+					</div>
+				</p>
+				<p>
+				    {{ patient_form.other_allergy.errors }}<label for="{{ patient_form.other_allergy.id_for_label }}">List any other allergies not above:</label>
+				    {{ patient_form.other_allergy }}
+				</p>
+				<p>
+				    {{ patient_form.med_hist.errors }}<label for="{{ patient_form.med_hist.id_for_label }}">Tick any applicable personal medical histories:</label>
+				    <div class="row">
+				    {% for value, text in patient_form.med_hist.field.choices %}
+					  <div class="ui slider checkbox col-lg-3 col-sm-12">
+					    <input id="id_med_hist_{{ forloop.counter0 }}" name="{{ patient_form.med_hist.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+					    <label>{{ text }}</label>
+					  </div>
+					{% endfor %}
+					</div>
+				</p>
+				<p>
+				    {{ patient_form.other_hist.errors }}<label for="{{ patient_form.other_hist.id_for_label }}">List any other personal medical history not above:</label>
+				    {{ patient_form.other_hist }}
+				</p>
+				<p>
+				    {{ patient_form.fam_hist.errors }}<label for="{{ patient_form.fam_hist.id_for_label }}">Tick any applicable family medical histories:</label>
+				    <div class="row">
+				    {% for value, text in patient_form.fam_hist.field.choices %}
+					  <div class="ui slider checkbox col-lg-3 col-sm-12">
+					    <input id="id_fam_hist_{{ forloop.counter0 }}" name="{{ patient_form.fam_hist.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+					    <label>{{ text }}</label>
+					  </div>
+					{% endfor %}
+					</div>
+				</p>
+				<p>
+				    {{ patient_form.other_fam_hist.errors }}<label for="{{ patient_form.other_fam_hist.id_for_label }}">List any other family medical history not above:</label>
+				    {{ patient_form.other_fam_hist }}
+				</p>
+				<p>
+				    {{ patient_form.smoke.errors }}<label for="{{ patient_form.smoke.id_for_label }}">How frequently do you smoke?:</label>
+				    {{ patient_form.smoke }}
+				</p>
+				<p>
+				    {{ patient_form.alc.errors }}<label for="{{ patient_form.alc.id_for_label }}">How frequently do you drink?:</label>
+				    {{ patient_form.alc }}
+				</p>
+				<button type="submit">Save changes</button>
 			</form>
 		</div>
       </div>

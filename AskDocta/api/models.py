@@ -34,9 +34,16 @@ class Patient(models.Model):
     DOB = models.DateField();
     GENDER_CHOICES = (('M', 'Male'), ('F', 'Female'))
     sex = models.CharField(max_length=1, choices=GENDER_CHOICES);
-    current_issue = models.CharField(max_length=255);
-    start = models.CharField(max_length=255)
-    PAIN_CHOICES = ((1,'1'), (2, '2'),(3, '3'),(4, '4'),(5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'))
+    ISSUE_CHOICES = (
+        (1,'Blood'), (2, 'Cancer'),(3, 'Cardiovascular/Heart'),(4, 'Ear'),(5, 'Eye'),(6, 'Infection'),(7, 'Immune'),(8, 'Injury/Accident'),
+        (9, 'Mental Health'),(10, 'Metabolic/Endocrine'),(11, 'Muscle/Bone'),(12, 'Neurological'),(13, 'Oral and gastrointestinal'),
+        (14, 'Renal and Urogenital'),(15, 'Reproduction/Childbirth'),(16, 'Respiratory'),(17, 'Skin'),(18, 'Stroke'),(19, 'General/Other')
+    )
+    issue = models.IntegerField(choices=ISSUE_CHOICES);
+    other_issue = models.CharField(max_length=255);
+    start = models.DateField(blank=True, null=True);
+    start_details = models.CharField(max_length=255);
+    PAIN_CHOICES = ((1,'Low'), (2, 'Medium'),(3, 'High'))
     severity = models.IntegerField(choices=PAIN_CHOICES);
     ALLERGY_CHOICES = (('N', 'None'),('L', 'Latex'),('P', 'Penicillin'),('A', 'Aspirin'),('I', 'Iodine'),('S', 'Shellfish'),('O', 'Other'))
     MED_HIST_CHOICES = (
@@ -75,19 +82,19 @@ class Patient(models.Model):
         ('diab', 'Diabetes'),
         ('arth', 'Arthritis')
     )
-    allergies = MultiSelectField(choices=ALLERGY_CHOICES)
-    med_hist = MultiSelectField(choices=MED_HIST_CHOICES)
-    fam_hist = MultiSelectField(choices=FAM_HIST_CHOICES)
+    allergies = MultiSelectField(choices=ALLERGY_CHOICES);
+    med_hist = MultiSelectField(choices=MED_HIST_CHOICES);
+    fam_hist = MultiSelectField(choices=FAM_HIST_CHOICES);
     other_allergy = models.CharField(max_length=255)
     curr_meds = models.CharField(max_length=255);
-    other_hist = models.CharField(max_length=255)
-    fam_other_hist = models.CharField(max_length=255)
+    other_hist = models.CharField(max_length=255);
+    other_fam_hist = models.CharField(max_length=255);
     SMOKE_OPT = (('N', 'None'),('F', 'Former'),('S', 'Some Days'),('M', 'Most/Every Day'))
     smoke = models.CharField(max_length=1, choices=SMOKE_OPT);
     ALC_OPT = (('N', 'None'),('O', 'Occasional'),('F', 'Frequent'))
     alc = models.CharField(max_length=1, choices=ALC_OPT);
     doctor = models.ForeignKey(Profile, on_delete=models.PROTECT, related_name='doctor', blank=True,
-        null=True)
+        null=True);
     created_at = models.DateTimeField(auto_now_add=True);
 
     def __str__(self):

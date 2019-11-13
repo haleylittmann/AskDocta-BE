@@ -6,13 +6,18 @@ from django.shortcuts import redirect
 from .forms import UserForm
 from .forms import ProfileForm
 from .forms import PatientForm
+from .forms import SortForm
 from django.contrib import messages
+from django.template.defaulttags import register
 import os
 
 account_sid = os.environ['TWILIO_ID']
 auth_token = os.environ['TWILIO_SECRET']
 client = Client(account_sid, auth_token)
 # Create your views here.
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 
 def index(request):
@@ -27,8 +32,28 @@ def patient(request):
         return redirect('/accounts/login')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
-    patients = Patient.objects.all().filter(doctor__isnull=True).order_by('-severity',)
-    return render(request, 'patient/index.html', {'patients': patients})
+    if request.method == 'POST':
+        patients = Patient.objects.all().filter(doctor__isnull=True, issue=request.POST["issue"]).order_by("-severity")
+        issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
+            9:'Mental Health',10:'Metabolic/Endocrine',11:'Muscle/Bone',12:'Neurological',13:'Oral and gastrointestinal',
+            14:'Renal and Urogenital',15:'Reproduction/Childbirth',16:'Respiratory',17:'Skin',18:'Stroke',19:'General/Other'}
+        sort_form = SortForm()
+        return render(request, 'patient/index.html', {'patients': patients, 'issue_dict': issue_dict, 'sort_form': sort_form})
+    else:
+        order_by = request.GET.get('order_by')
+        if order_by:
+            ordering = order_by
+        else:
+            ordering = 'severity'
+        direction = request.GET.get('direction')
+        if direction == 'desc':
+            ordering = '-{}'.format(ordering)
+        patients = Patient.objects.all().filter(doctor__isnull=True).order_by(ordering)
+        issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
+            9:'Mental Health',10:'Metabolic/Endocrine',11:'Muscle/Bone',12:'Neurological',13:'Oral and gastrointestinal',
+            14:'Renal and Urogenital',15:'Reproduction/Childbirth',16:'Respiratory',17:'Skin',18:'Stroke',19:'General/Other'}
+        sort_form = SortForm()
+        return render(request, 'patient/index.html', {'patients': patients, 'issue_dict': issue_dict, 'sort_form': sort_form})
 
 def doctor_patients(request):
     if not request.user.is_authenticated:
