@@ -82,25 +82,32 @@
                   {% if p.fam_hist %}
                   <h6 class="">Family History: {{ p.fam_hist }}</h6>
                   {% endif %}
-                  <h6 class="">Smoke:
-                  {% if p.smoke == "N"%}
-                  None
-                  {% elif p.smoke == "F"%}
-                  Former
-                  {% elif p.smoke == "S"%}
-                  Some Days
-                  {% else %}
-                  Most/Every Day
-                  {% endif %}
-                   | Alcohol: 
-                  {% if p.alc == "N"%}
-                  None
-                  {% elif p.alc == "O"%}
-                  Occasional
-                  {% else %}
-                  Frequent
-                  {% endif %}
-                  </h6>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class="">Smoke:
+                        {% if p.smoke == "N"%}
+                        None
+                        {% elif p.smoke == "F"%}
+                        Former
+                        {% elif p.smoke == "S"%}
+                        Some Days
+                        {% else %}
+                        Most/Every Day
+                        {% endif %}
+                      </h6>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="">Alcohol: 
+                        {% if p.alc == "N"%}
+                        None
+                        {% elif p.alc == "O"%}
+                        Occasional
+                        {% else %}
+                        Frequent
+                        {% endif %}
+                      </h6>
+                    </div>
+                  </div>
                   <h6 class="">Request Created: {{ p.created_at }}</h6>
               </div>
             </div>
