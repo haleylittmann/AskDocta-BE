@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="py-5">
+    <div class="container">
+    <h2 class="font-weight-bold">Patient Details:</h2>
+      <div class="row py-2">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class=""><b class="font-weight-bold">Name:</b> {{ p.p.first_name }} {{ p.p.last_name }}</h6>
+            </div>
+            <div class="col-md-6">
+              <h6><b class="font-weight-bold">Sex</b> {{ p.p.sex }}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class=""><b class="font-weight-bold">Current Issue:</b> {{ issue_dict|get_item:p.p.issue }} {% if p.p.other_issue %}| Details: {{ p.p.other_issue }}{% endif %}</h6>
+            </div>
+            <div class="col-md-6">
+              <h6><b class="font-weight-bold">Severity:</b> 
+              {% if p.p.severity == 1%}
+              Low
+              {% elif p.p.severity == 2%}
+              Medium
+              {% elif p.p.severity == 3%}
+              High
+              {% endif %}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+            {% if p.p.issue_description %}
+            <h6 class=""><b class="font-weight-bold">Further Details:</b> {{ p.p.issue_description }}</h6>
+            {% endif %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+            {% if p.p.start %}
+            <h6 class=""><b class="font-weight-bold">Start of Issue:</b> {{ p.p.start }}</h6>
+            {% endif %}
+            {% if p.p.start_details %}
+            <h6 class=""><b class="font-weight-bold">Start of Issue:</b> {{ p.p.start_deatils }}</h6>
+            {% endif %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class=""><b class="font-weight-bold">Height:</b> {{ p.p.height }} cm</h6>
+            </div>
+            <div class="col-md-6">
+              <h6><b class="font-weight-bold">Weight</b> {{ p.p.weight }} kg</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h6 class=""><b class="font-weight-bold">Allergies:</b> {{ p.p.allergies }}
+                {% if p.p.other_allergy %}
+                , {{ p.p.other_allergy }}
+                {% endif %}
+              </h6>
+              {% if p.p.curr_meds %}
+              <h6 class=""><b class="font-weight-bold">Current Medications:</b> {{ p.p.curr_meds }}</h6>
+              {% endif %}
+              {% if p.p.med_hist %}
+              <h6 class=""><b class="font-weight-bold">Medical History:</b> {{ p.p.med_hist }}</h6>
+              {% endif %}
+              {% if p.p.other_hist %}
+              <h6 class=""><b class="font-weight-bold">Other History:</b> {{ p.p.other_hist }}</h6>
+              {% endif %}
+              {% if p.p.fam_hist %}
+              <h6 class=""><b class="font-weight-bold">Family History:</b> {{ p.p.fam_hist }}</h6>
+              {% endif %}
+              <div class="row">
+                <div class="col-md-6">
+                  <h6 class=""><b class="font-weight-bold">Smoke:</b>
+                    {% if p.p.smoke == "N"%}
+                    None
+                    {% elif p.p.smoke == "F"%}
+                    Former
+                    {% elif p.p.smoke == "S"%}
+                    Some Days
+                    {% else %}
+                    Most/Every Day
+                    {% endif %}
+                  </h6>
+                </div>
+                <div class="col-md-6">
+                  <h6 class=""><b class="font-weight-bold">Alcohol:</b> 
+                    {% if p.p.alc == "N"%}
+                    None
+                    {% elif p.p.alc == "O"%}
+                    Occasional
+                    {% else %}
+                    Frequent
+                    {% endif %}
+                  </h6>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+            <h4 class=""><b class="font-weight-bold">Registrar for this Patient:</h4>
+            <h6 class=""><b class="font-weight-bold">Name:</b> {{ p.r.first_name }} {{ p.r.last_name }}</h6>
+            <h6 class=""><b class="font-weight-bold">Phone:</b> {{ p.r.phone }}</h6>
+            <h6 class=""><b class="font-weight-bold">Email:</b> {{ p.email }}</h6>
+            <h6 class=""><b class="font-weight-bold">Request Created:</b> {{ p.p.created_at }}</h6>
+            <br>
+      </div> 
+    </div> 
+</div>        
+{% endblock content %}

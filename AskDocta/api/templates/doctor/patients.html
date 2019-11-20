@@ -3,54 +3,134 @@
 {% block content %}
 <div class="py-5">
     <div class="container">
+    <h2>Sorting:</h2>
+    <a class="btn btn-light" href="?order_by=severity&direction=desc" role="button">Severity ↓</a>
+    <a class="btn btn-light" href="?order_by=severity&direction=asc" role="button">Severity ↑</a>
+    <a class="btn btn-light" href="?order_by=created_at&direction=desc" role="button">Created ↓</a>
+    <a class="btn btn-light" href="?order_by=created_at&direction=asc" role="button">Created ↑</a>
+    <a class="btn btn-light" href="?order_by=start&direction=desc" role="button">Start ↓</a>
+    <a class="btn btn-light" href="?order_by=start&direction=asc" role="button">Start ↑</a>
+    <br>
+    <br>
+    <form method="post">
+        {% csrf_token %}{{ sort_form.issue.errors }} 
+          <label for="{{ sort_form.issue.id_for_label }}">Issue:</label>
+          {{ sort_form.issue }} 
+      <button class="btn btn-light" type="submit">Sort</button>
+    </form>
+    <br>
     <h1>Requests:</h1>
     {% if patients %}
         {% for p in patients %}
           <div class="row py-2 border-top bordert-bottom border-light">
             <div class="col-md-8">
-              <h6 class=""><b>Name:</b> {{ p.first_name }} {{ p.last_name }} |  <b>Sex</b> {{ p.sex }}</h6>
-              <h6 class="">Current Issue: {{ p.current_issue }} |  <b>Severity</b> {{ p.severity }}</h6>
-              {% if p.start %}
-              <h6 class="">Start of Issue: {{ p.start }}</h6>
-              {% endif %}
-              <h6 class="">Height: {{ p.height }} cm |  <b>Weight</b> {{ p.weight }} kg</h6>
-              <h6 class="">Allergies: {{ p.allergies }}
-                {% if p.other_allergy %}
-                , {{ p.other_allergy }}
+              <div class="row">
+                <div class="col-md-6">
+                  <h6 class=""><b class="font-weight-bold">Name:</b> {{ p.p.first_name }} {{ p.p.last_name }}</h6>
+                </div>
+                <div class="col-md-6">
+                  <h6><b class="font-weight-bold">Sex</b> {{ p.p.sex }}</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <h6 class=""><b class="font-weight-bold">Current Issue:</b> {{ issue_dict|get_item:p.p.issue }} {% if p.p.other_issue %}| Details: {{ p.p.other_issue }}{% endif %}</h6>
+                </div>
+                <div class="col-md-6">
+                  <h6><b class="font-weight-bold">Severity:</b> 
+                  {% if p.p.severity == 1%}
+                  Low
+                  {% elif p.p.severity == 2%}
+                  Medium
+                  {% elif p.p.severity == 3%}
+                  High
+                  {% endif %}</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                {% if p.p.issue_description %}
+                <h6 class=""><b class="font-weight-bold">Further Details:</b> {{ p.p.issue_description }}</h6>
                 {% endif %}
-              </h6>
-              {% if p.curr_meds %}
-              <h6 class="">Current Medications: {{ p.curr_meds }}</h6>
-              {% endif %}
-              {% if p.med_hist %}
-              <h6 class="">Medical History: {{ p.med_hist }}</h6>
-              {% endif %}
-              {% if p.other_hist %}
-              <h6 class="">Other History: {{ p.other_hist }}</h6>
-              {% endif %}
-              {% if p.fam_hist %}
-              <h6 class="">Family History: {{ p.fam_hist }}</h6>
-              {% endif %}
-              <h6 class="">Smoke:
-              {% if p.smoke == "N"%}
-              None
-              {% elif p.smoke == "F"%}
-              Former
-              {% elif p.smoke == "S"%}
-              Some Days
-              {% else %}
-              Most/Every Day
-              {% endif %}
-               | Alcohol: 
-              {% if p.alc == "N"%}
-              None
-              {% elif p.alc == "O"%}
-              Occasional
-              {% else %}
-              Frequent
-              {% endif %}
-            </h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                {% if p.p.start %}
+                <h6 class=""><b class="font-weight-bold">Start of Issue:</b> {{ p.p.start }}</h6>
+                {% endif %}
+                {% if p.p.start_details %}
+                <h6 class=""><b class="font-weight-bold">Start of Issue:</b> {{ p.p.start_deatils }}</h6>
+                {% endif %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <h6 class=""><b class="font-weight-bold">Height:</b> {{ p.p.height }} cm</h6>
+                </div>
+                <div class="col-md-6">
+                  <h6><b class="font-weight-bold">Weight</b> {{ p.p.weight }} kg</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class=""><b class="font-weight-bold">Allergies:</b> {{ p.p.allergies }}
+                    {% if p.p.other_allergy %}
+                    , {{ p.p.other_allergy }}
+                    {% endif %}
+                  </h6>
+                  {% if p.p.curr_meds %}
+                  <h6 class=""><b class="font-weight-bold">Current Medications:</b> {{ p.p.curr_meds }}</h6>
+                  {% endif %}
+                  {% if p.p.med_hist %}
+                  <h6 class=""><b class="font-weight-bold">Medical History:</b> {{ p.p.med_hist }}</h6>
+                  {% endif %}
+                  {% if p.p.other_hist %}
+                  <h6 class=""><b class="font-weight-bold">Other History:</b> {{ p.p.other_hist }}</h6>
+                  {% endif %}
+                  {% if p.p.fam_hist %}
+                  <h6 class=""><b class="font-weight-bold">Family History:</b> {{ p.p.fam_hist }}</h6>
+                  {% endif %}
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class=""><b class="font-weight-bold">Smoke:</b>
+                        {% if p.p.smoke == "N"%}
+                        None
+                        {% elif p.p.smoke == "F"%}
+                        Former
+                        {% elif p.p.smoke == "S"%}
+                        Some Days
+                        {% else %}
+                        Most/Every Day
+                        {% endif %}
+                      </h6>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class=""><b class="font-weight-bold">Alcohol:</b> 
+                        {% if p.p.alc == "N"%}
+                        None
+                        {% elif p.p.alc == "O"%}
+                        Occasional
+                        {% else %}
+                        Frequent
+                        {% endif %}
+                      </h6>
+                    </div>
+                  </div>
+              </div>
             </div>
+          </div>
+            <div class="col-md-4">
+                <h4 class=""><b class="font-weight-bold">Registrar for this Patient:</h4>
+                <h6 class=""><b class="font-weight-bold">Name:</b> {{ p.r.first_name }} {{ p.r.last_name }}</h6>
+                <h6 class=""><b class="font-weight-bold">Phone:</b> {{ p.r.phone }}</h6>
+                <h6 class=""><b class="font-weight-bold">Email:</b> {{ p.email }}</h6>
+                <h6 class=""><b class="font-weight-bold">Request Created:</b> {{ p.p.created_at }}</h6>
+              <form action="/doctor/patients/{{p.p.id}}" method="get">
+                  <button type="submit" class="btn btn-lg btn-block btn-secondary">View Comments and Details</button>
+              </form>
+            </div> 
+            </div> 
           </div>
         {% endfor %}
     {% else %}

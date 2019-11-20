@@ -29,8 +29,8 @@ class Request(models.Model):
 class Patient(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    height = models.CharField(max_length=30)
-    weight = models.CharField(max_length=30)
+    height = models.FloatField(max_length=30)
+    weight = models.FloatField(max_length=30)
     DOB = models.DateField();
     GENDER_CHOICES = (('M', 'Male'), ('F', 'Female'))
     sex = models.CharField(max_length=1, choices=GENDER_CHOICES);
@@ -40,6 +40,7 @@ class Patient(models.Model):
         (14, 'Renal and Urogenital'),(15, 'Reproduction/Childbirth'),(16, 'Respiratory'),(17, 'Skin'),(18, 'Stroke'),(19, 'General/Other')
     )
     issue = models.IntegerField(choices=ISSUE_CHOICES);
+    issue_description = models.CharField(max_length=255)
     other_issue = models.CharField(max_length=255);
     start = models.DateField(blank=True, null=True);
     start_details = models.CharField(max_length=255);
@@ -47,6 +48,7 @@ class Patient(models.Model):
     severity = models.IntegerField(choices=PAIN_CHOICES);
     ALLERGY_CHOICES = (('N', 'None'),('L', 'Latex'),('P', 'Penicillin'),('A', 'Aspirin'),('I', 'Iodine'),('S', 'Shellfish'),('O', 'Other'))
     MED_HIST_CHOICES = (
+        ('none', 'None'),
         ('bleed', 'Bleeding Problems'),
         ('anemia', 'Anemia'),
         ('hbp', 'High blood pressure'),
@@ -77,6 +79,7 @@ class Patient(models.Model):
         ('hc', 'High Cholesterol')
     )
     FAM_HIST_CHOICES = (
+        ('none', 'None'),
         ('hbp', 'High blood pressure'),
         ('hd', 'Heart disease/heart attack'),
         ('diab', 'Diabetes'),
@@ -93,6 +96,8 @@ class Patient(models.Model):
     smoke = models.CharField(max_length=1, choices=SMOKE_OPT);
     ALC_OPT = (('N', 'None'),('O', 'Occasional'),('F', 'Frequent'))
     alc = models.CharField(max_length=1, choices=ALC_OPT);
+    registrar = models.ForeignKey(Profile, on_delete=models.PROTECT, related_name='registrar', blank=True,
+        null=True);
     doctor = models.ForeignKey(Profile, on_delete=models.PROTECT, related_name='doctor', blank=True,
         null=True);
     created_at = models.DateTimeField(auto_now_add=True);

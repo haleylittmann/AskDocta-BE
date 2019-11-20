@@ -6,19 +6,24 @@
 	  <div class="row justify-content-center">
 	    <div class="p-5 col-lg-12">
 	    	<h1>New Patient:</h1>
+	    	<br>
+	    	<h6 class="font-weight-bold"><b class="text-danger">*</b> Indicates a required field</h6>
+	    	<br>
 			<form method="post">
 				{% csrf_token %}
 				{{ patient_form.non_field_errors }}
-				<div class="row">
+				<div class="row" class="font-weight-bold">
 					<div class="col-lg-6 col-sm-12">
 						<p>{{ patient_form.first_name.errors }} 
-							<label for="{{ patient_form.first_name.id_for_label }}">First Name:</label>
+							<label class="font-weight-bold" for="{{ patient_form.first_name.id_for_label }}">First Name:</label>
+							<b class="text-danger font-weight-bold">*</b>
 							{{ patient_form.first_name }} 
 						</p>
 					</div>
 					<div class="col-lg-6 col-sm-12">
 						<p>{{ patient_form.last_name.errors }} 
-							<label for="{{ patient_form.last_name.id_for_label }}">Last Name:</label>
+							<label class="font-weight-bold" for="{{ patient_form.last_name.id_for_label }}">Last Name:</label>
+							<b class="text-danger font-weight-bold">*</b>
 							{{ patient_form.last_name }} 
 						</p>
 					</div>
@@ -26,13 +31,15 @@
 				<div class="row">
 					<div class="col-lg-6 col-sm-12">
 						<p>{{ patient_form.height.errors }} 
-							<label for="{{ patient_form.height.id_for_label }}">Height (in cm):</label>
+							<label class="font-weight-bold" for="{{ patient_form.height.id_for_label }}">Height (in cm):</label>
+							<b class="text-danger font-weight-bold">*</b>							
 							{{ patient_form.height }} 
 						</p>
 					</div>
 					<div class="col-lg-6 col-sm-12">
 						<p>{{ patient_form.weight.errors }} 
-							<label for="{{ patient_form.weight.id_for_label }}">Weight (in kg):</label>
+							<label class="font-weight-bold" for="{{ patient_form.weight.id_for_label }}">Weight (in kg):</label>
+							<b class="text-danger font-weight-bold">*</b>
 							{{ patient_form.weight }} 
 						</p>
 					</div>
@@ -40,39 +47,48 @@
 				<div class="row">
 					<div class="col-lg-6 col-sm-12">
 						<p>{{ patient_form.DOB.errors }} 
-							<label for="{{ patient_form.DOB.id_for_label }}">Date of Birth:</label>
+							<label class="font-weight-bold" for="{{ patient_form.DOB.id_for_label }}">Date of Birth:</label>
+							<b class="text-danger font-weight-bold">*</b>
 							{{ patient_form.DOB }} 
 						</p>
 					</div>
 					<div class="col-lg-6 col-sm-12">
 						<p>{{ patient_form.sex.errors }} 
-							<label for="{{ patient_form.sex.id_for_label }}">Sex:</label>
+							<label class="font-weight-bold" for="{{ patient_form.sex.id_for_label }}">Sex:</label>
+							<b class="text-danger font-weight-bold">*</b>
 							{{ patient_form.sex }} 
 						</p>
 					</div>
 				</div>
 				<p>{{ patient_form.issue.errors }} 
-					<label for="{{ patient_form.issue.id_for_label }}">Issue:</label>
+					<label class="font-weight-bold" for="{{ patient_form.issue.id_for_label }}">Issue:</label>
+					<b class="text-danger font-weight-bold">*</b>
 					{{ patient_form.issue }} 
 				</p>
 				<p>
-				    {{ patient_form.other_issue.errors }}<label for="{{ patient_form.other_issue.id_for_label }}">Explain if 'General/Other':</label>
+				    {{ patient_form.other_issue.errors }}<label class="font-weight-bold" for="{{ patient_form.other_issue.id_for_label }}">Explain if 'General/Other':</label>
 				    {{ patient_form.other_issue }}
 				</p>
+				<p>
+				    {{ patient_form.issue_description.errors }}<label class="font-weight-bold" for="{{ patient_form.issue_description.id_for_label }}">Describe your current issue:</label>
+				    {{ patient_form.issue_description }}
+				</p>
 				<p>{{ patient_form.start.errors }} 
-				    <label for="{{ patient_form.start.id_for_label }}">When did the issue start?:</label>
+				    <label class="font-weight-bold" for="{{ patient_form.start.id_for_label }}">When did the issue start?:</label>
 				    {{ patient_form.start }} 
 				</p>
 				<p>
-				    {{ patient_form.start_details.errors }}<label for="{{ patient_form.start_details.id_for_label }}">Or in general terms (Such as "Two weeks ago"):</label>
+				    {{ patient_form.start_details.errors }}<label class="font-weight-bold" for="{{ patient_form.start_details.id_for_label }}">Or in general terms (Such as "Two weeks ago"):</label>
 				    {{ patient_form.start_details }}
 				</p>
 				<p>
-				    {{ patient_form.severity.errors }}<label for="{{ patient_form.severity.id_for_label }}">How severe is your pain?:</label>
+				    {{ patient_form.severity.errors }}<label class="font-weight-bold" for="{{ patient_form.severity.id_for_label }}">How severe is your pain?:</label>
+					<b class="text-danger font-weight-bold">*</b>
 				    {{ patient_form.severity }}
 				</p>
 				<p>
-				    {{ patient_form.allergies.errors }}<label for="{{ patient_form.allergies.id_for_label }}">Tick any allergies you have:</label>
+				    {{ patient_form.allergies.errors }}<label class="font-weight-bold" for="{{ patient_form.allergies.id_for_label }}">Tick any allergies you have:</label>
+					<b class="text-danger font-weight-bold">*</b>
 				    <div class="row">
 				    {% for value, text in patient_form.allergies.field.choices %}
 					  <div class="ui slider checkbox col-lg-3 col-sm-12">
@@ -83,11 +99,12 @@
 					</div>
 				</p>
 				<p>
-				    {{ patient_form.other_allergy.errors }}<label for="{{ patient_form.other_allergy.id_for_label }}">List any other allergies not above:</label>
+				    {{ patient_form.other_allergy.errors }}<label class="font-weight-bold" for="{{ patient_form.other_allergy.id_for_label }}">List any other allergies not above:</label>
 				    {{ patient_form.other_allergy }}
 				</p>
 				<p>
-				    {{ patient_form.med_hist.errors }}<label for="{{ patient_form.med_hist.id_for_label }}">Tick any applicable personal medical histories:</label>
+				    {{ patient_form.med_hist.errors }}<label class="font-weight-bold" for="{{ patient_form.med_hist.id_for_label }}">Tick any applicable personal medical histories:</label>
+					<b class="text-danger font-weight-bold">*</b>
 				    <div class="row">
 				    {% for value, text in patient_form.med_hist.field.choices %}
 					  <div class="ui slider checkbox col-lg-3 col-sm-12">
@@ -98,11 +115,12 @@
 					</div>
 				</p>
 				<p>
-				    {{ patient_form.other_hist.errors }}<label for="{{ patient_form.other_hist.id_for_label }}">List any other personal medical history not above:</label>
+				    {{ patient_form.other_hist.errors }}<label class="font-weight-bold" for="{{ patient_form.other_hist.id_for_label }}">List any other personal medical history not above:</label>
 				    {{ patient_form.other_hist }}
 				</p>
 				<p>
-				    {{ patient_form.fam_hist.errors }}<label for="{{ patient_form.fam_hist.id_for_label }}">Tick any applicable family medical histories:</label>
+				    {{ patient_form.fam_hist.errors }}<label class="font-weight-bold" for="{{ patient_form.fam_hist.id_for_label }}">Tick any applicable family medical histories:</label>
+					<b class="text-danger font-weight-bold">*</b>
 				    <div class="row">
 				    {% for value, text in patient_form.fam_hist.field.choices %}
 					  <div class="ui slider checkbox col-lg-3 col-sm-12">
@@ -113,17 +131,20 @@
 					</div>
 				</p>
 				<p>
-				    {{ patient_form.other_fam_hist.errors }}<label for="{{ patient_form.other_fam_hist.id_for_label }}">List any other family medical history not above:</label>
+				    {{ patient_form.other_fam_hist.errors }}<label class="font-weight-bold" for="{{ patient_form.other_fam_hist.id_for_label }}">List any other family medical history not above:</label>
 				    {{ patient_form.other_fam_hist }}
 				</p>
 				<p>
-				    {{ patient_form.smoke.errors }}<label for="{{ patient_form.smoke.id_for_label }}">How frequently do you smoke?:</label>
+				    {{ patient_form.smoke.errors }}<label class="font-weight-bold" for="{{ patient_form.smoke.id_for_label }}">How frequently do you smoke?:</label>
+					<b class="text-danger font-weight-bold">*</b>
 				    {{ patient_form.smoke }}
 				</p>
 				<p>
-				    {{ patient_form.alc.errors }}<label for="{{ patient_form.alc.id_for_label }}">How frequently do you drink?:</label>
+				    {{ patient_form.alc.errors }}<label class="font-weight-bold" for="{{ patient_form.alc.id_for_label }}">How frequently do you drink?:</label>
+					<b class="text-danger font-weight-bold">*</b>
 				    {{ patient_form.alc }}
 				</p>
+				<input type="hidden" name="registrar" id="id_registrar" value="{{registrar}}">
 				<button type="submit">Save changes</button>
 			</form>
 		</div>

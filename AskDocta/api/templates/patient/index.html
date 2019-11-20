@@ -26,18 +26,18 @@
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-6">
-                  <h6 class=""><b>Name:</b> {{ p.first_name }} {{ p.last_name }}</h6>
+                  <h6 class=""><b class="font-weight-bold">Name:</b> {{ p.first_name }} {{ p.last_name }}</h6>
                 </div>
                 <div class="col-md-6">
-                  <h6><b>Sex</b> {{ p.sex }}</h6>
+                  <h6><b class="font-weight-bold">Sex</b> {{ p.sex }}</h6>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <h6 class="">Current Issue: {{ issue_dict|get_item:p.issue }} {% if p.other_issue %}| Details: {{ p.other_issue }}{% endif %}</h6>
+                  <h6 class=""><b class="font-weight-bold">Current Issue:</b> {{ issue_dict|get_item:p.issue }} {% if p.other_issue %}| Details: {{ p.other_issue }}{% endif %}</h6>
                 </div>
                 <div class="col-md-6">
-                  <h6><b>Severity:</b> 
+                  <h6><b class="font-weight-bold">Severity:</b> 
                   {% if p.severity == 1%}
                   Low
                   {% elif p.severity == 2%}
@@ -48,43 +48,52 @@
                 </div>
               </div>
               <div class="row">
-                {% if p.start %}
-                <h6 class="">Start of Issue: {{ p.start }}</h6>
+                <div class="col-md-12">
+                {% if p.issue_description %}
+                <h6 class=""><b class="font-weight-bold">Further Details:</b> {{ p.issue_description }}</h6>
                 {% endif %}
-                {% if p.start_details %}
-                <h6 class="">Start of Issue: {{ p.start_deatils }}</h6>
-                {% endif %}
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <h6 class="">Height: {{ p.height }} cm</h6>
-                </div>
-                <div class="col-md-6">
-                  <h6><b>Weight</b> {{ p.weight }} kg</h6>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <h6 class="">Allergies: {{ p.allergies }}
+                {% if p.start %}
+                <h6 class=""><b class="font-weight-bold">Start of Issue:</b> {{ p.start }}</h6>
+                {% endif %}
+                {% if p.start_details %}
+                <h6 class=""><b class="font-weight-bold">Start of Issue:</b> {{ p.start_deatils }}</h6>
+                {% endif %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <h6 class=""><b class="font-weight-bold">Height:</b> {{ p.height }} cm</h6>
+                </div>
+                <div class="col-md-6">
+                  <h6><b class="font-weight-bold">Weight</b> {{ p.weight }} kg</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class=""><b class="font-weight-bold">Allergies:</b> {{ p.allergies }}
                     {% if p.other_allergy %}
                     , {{ p.other_allergy }}
                     {% endif %}
                   </h6>
                   {% if p.curr_meds %}
-                  <h6 class="">Current Medications: {{ p.curr_meds }}</h6>
+                  <h6 class=""><b class="font-weight-bold">Current Medications:</b> {{ p.curr_meds }}</h6>
                   {% endif %}
                   {% if p.med_hist %}
-                  <h6 class="">Medical History: {{ p.med_hist }}</h6>
+                  <h6 class=""><b class="font-weight-bold">Medical History:</b> {{ p.med_hist }}</h6>
                   {% endif %}
                   {% if p.other_hist %}
-                  <h6 class="">Other History: {{ p.other_hist }}</h6>
+                  <h6 class=""><b class="font-weight-bold">Other History:</b> {{ p.other_hist }}</h6>
                   {% endif %}
                   {% if p.fam_hist %}
-                  <h6 class="">Family History: {{ p.fam_hist }}</h6>
+                  <h6 class=""><b class="font-weight-bold">Family History:</b> {{ p.fam_hist }}</h6>
                   {% endif %}
                   <div class="row">
                     <div class="col-md-6">
-                      <h6 class="">Smoke:
+                      <h6 class=""><b class="font-weight-bold">Smoke:</b>
                         {% if p.smoke == "N"%}
                         None
                         {% elif p.smoke == "F"%}
@@ -97,7 +106,7 @@
                       </h6>
                     </div>
                     <div class="col-md-6">
-                      <h6 class="">Alcohol: 
+                      <h6 class=""><b class="font-weight-bold">Alcohol:</b> 
                         {% if p.alc == "N"%}
                         None
                         {% elif p.alc == "O"%}
@@ -108,7 +117,7 @@
                       </h6>
                     </div>
                   </div>
-                  <h6 class="">Request Created: {{ p.created_at }}</h6>
+                  <h6 class=""><b class="font-weight-bold">Request Created:</b> {{ p.created_at }}</h6>
               </div>
             </div>
           </div>

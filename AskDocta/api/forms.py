@@ -1,6 +1,7 @@
 from django import forms
 from api.models import User, Patient, Profile
 import datetime
+from multiselectfield import MultiSelectField
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -39,6 +40,7 @@ class PatientForm(forms.ModelForm):
     start = forms.DateField(required=False, widget=forms.SelectDateWidget(years=year_choices))
     start_details = forms.CharField(required=False)
     other_issue = forms.CharField(required=False)
+    issue_description = forms.CharField(required=False)
     other_allergy = forms.CharField(required=False)
     curr_meds = forms.CharField(required=False)
     other_hist = forms.CharField(required=False)
@@ -54,6 +56,7 @@ class PatientForm(forms.ModelForm):
             'DOB',
             'sex',
             'issue',
+            'issue_description',
             'other_issue',
             'start',
             'severity',
@@ -65,5 +68,6 @@ class PatientForm(forms.ModelForm):
             'fam_hist',
             'other_fam_hist',
             'smoke',
-            'alc'
+            'alc',
+            'registrar'
         )
