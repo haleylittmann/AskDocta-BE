@@ -35,7 +35,7 @@ def profiles(request):
         return redirect('/')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
-    ps = Profile.objects.all().filter(first_name__isnull=False)
+    ps = Profile.objects.all().filter(first_name!="")
     profiles = []
     for p in ps:
         email = p.user.email
