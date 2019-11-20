@@ -189,7 +189,7 @@ def new_patient(request):
         patient_form = PatientForm(request.POST)
         if patient_form.is_valid():
             patient_form.save()
-            return redirect('/patient/new.html')
+            return redirect('/patient/new')
         else:
             messages.error(request, ('Please correct the error below.'))
     else:
