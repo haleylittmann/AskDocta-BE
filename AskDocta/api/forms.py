@@ -18,6 +18,15 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('first_name', 'last_name', 'phone')
 
+class PermissionsForm(forms.ModelForm):
+    PERMISSION_CHOICES = (('0', 'No'), ('1', 'Yes'))
+    # is_registrar = forms.CharField(max_length=1, choices=PERMISSION_CHOICES);
+    # is_doctor = forms.CharField(max_length=1, choices=PERMISSION_CHOICES);
+    
+    class Meta:
+        model = Profile
+        fields = ('is_registrar', 'is_doctor')
+
 ISSUE_CHOICES = (
         (1,'Blood'), (2, 'Cancer'),(3, 'Cardiovascular/Heart'),(4, 'Ear'),(5, 'Eye'),(6, 'Infection'),(7, 'Immune'),(8, 'Injury/Accident'),
         (9, 'Mental Health'),(10, 'Metabolic/Endocrine'),(11, 'Muscle/Bone'),(12, 'Neurological'),(13, 'Oral and gastrointestinal'),

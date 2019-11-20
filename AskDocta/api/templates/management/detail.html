@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="py-5" style="">
+	<div class="container">
+	  <div class="row justify-content-center">
+	    <div class="p-5 col-lg-8">
+	    	<h1>Edit Permissions:</h1>
+              <h6 class=""><b class="font-weight-bold">Name:</b> {{ profile.first_name }} {{ profile.last_name }}</h6>
+              <h6><b class="font-weight-bold">Phone</b> {{ profile.phone }}</h6>
+              <h6 class=""><b class="font-weight-bold">Email:</b> {{ email }}</h6>
+			<form method="post">
+			  {% csrf_token %}
+			  <p>
+			    {{ permissions_form.is_registrar.errors }}<label class="font-weight-bold" for="{{ permissions_form.is_registrar.id_for_label }}">Should this user be able to register new patients?:</label>
+			    {{ permissions_form.is_registrar }}
+			    <br>
+			    {{ permissions_form.is_doctor.errors }}<label class="font-weight-bold" for="{{ permissions_form.is_doctor.id_for_label }}">Is this user a Doctor?:</label>
+			    {{ permissions_form.is_doctor }}
+			  </p>
+			  <button type="submit">Save changes</button>
+			</form>
+		</div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

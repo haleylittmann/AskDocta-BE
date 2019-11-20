@@ -7,6 +7,7 @@ from .forms import UserForm
 from .forms import ProfileForm
 from .forms import PatientForm
 from .forms import SortForm
+from .forms import PermissionsForm
 from django.contrib import messages
 from django.template.defaulttags import register
 import os
@@ -27,9 +28,47 @@ def index(request):
         return redirect('/profile/edit')
     return render(request, 'index.html')
 
+def profiles(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
+    if not request.user.profile.is_admin:
+        return redirect('/')
+    if not request.user.profile.phone:
+        return redirect('/profile/edit')
+    ps = Profile.objects.all()
+    profiles = []
+    for p in ps:
+        email = p.user.email
+        temp = {"p":p, "email":email}
+        profiles.append(temp)
+    return render(request, 'management/index.html', {'profiles': profiles})
+
+def profiles_details(request, request_id):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
+    if not request.user.profile.is_admin:
+        return redirect('/')
+    if not request.user.profile.phone:
+        return redirect('/profile/edit')
+    if request.method == 'POST':
+        permissions_form = PermissionsForm(request.POST, instance=request.user.profile)
+        if permissions_form.is_valid():
+            permissions_form.save()
+            return redirect('/management')
+        else:
+            messages.error(request, ('Please correct the error below.'))
+    else:
+        profile = Profile.objects.get(id=request_id)
+        email = profile.user.email
+        permissions_form = PermissionsForm(instance=profile)
+        return render(request, 'management/detail.html', {'profile': profile, 'email': email, 'permissions_form':permissions_form})
+
+
 def patient(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
+    if not request.user.profile.is_doctor:
+        return redirect('/')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
     issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
@@ -53,6 +92,8 @@ def patient(request):
 def doctor_patients(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
+    if not request.user.profile.is_doctor:
+        return redirect('/')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
     issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
@@ -82,6 +123,8 @@ def doctor_patients(request):
 def doctor_patients_detail(request, request_id):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
+    if not request.user.profile.is_doctor:
+        return redirect('/')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
     issue_dict = {1:'Blood', 2:'Cancer',3:'Cardiovascular/Heart',4:'Ear',5:'Eye',6:'Infection',7:'Immune',8:'Injury/Accident',
@@ -140,11 +183,13 @@ def detail(request, request_id):
 def new_patient(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
+    if not (request.user.profile.is_doctor or request.user.profile.is_registrar):
+        return redirect('/')
     if request.method == 'POST':
         patient_form = PatientForm(request.POST)
         if patient_form.is_valid():
             patient_form.save()
-            return redirect('/')
+            return redirect('/patient/new.html')
         else:
             messages.error(request, ('Please correct the error below.'))
     else:

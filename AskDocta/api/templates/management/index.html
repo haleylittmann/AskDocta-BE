@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="py-5">
+    <div class="container">
+    <br>
+    <h1>Users:</h1>
+        {% for p in profiles %}
+          <div class="row py-2 border-top bordert-bottom border-light">
+            <div class="col-md-8">
+                  <h6 class=""><b class="font-weight-bold">Name:</b> {{ p.p.first_name }} {{ p.p.last_name }}</h6>
+                  <h6><b class="font-weight-bold">Phone</b> {{ p.p.phone }}</h6>
+                  <h6 class=""><b class="font-weight-bold">Email:</b> {{ p.email }}</h6>
+            </div>
+            <div class="col-md-4">
+                <form action="/management/{{p.p.id}}" method="get">
+                    <button type="submit" class="btn btn-lg btn-block btn-secondary">Modify Permissions</button>
+                </form>
+            </div> 
+          </div>
+        {% endfor %}
+    </div>
+</div>        
+{% endblock content %}

@@ -7,11 +7,14 @@
 	    	<div class="col-md-2">
 	        </div>
 	        <div class="col-md-8 justify-content-center">
+	        	{% if request.user.profile.is_registrar %}
 	            <form action="/patient/new" method="get">
 	                <button type="submit" class="btn btn-lg btn-block btn-secondary">New Patient</button>
 	            </form>
+	            {% endif %}
 	            <br>
 	            <br>
+	            {% if request.user.profile.is_doctor %}
 	            <form action="/patient" method="get">
 	                <button type="submit" class="btn btn-lg btn-block btn-secondary">View Requests</button>
 	            </form>
@@ -20,6 +23,14 @@
 	            <form action="doctor/patients" method="get">
 	                <button type="submit" class="btn btn-lg btn-block btn-secondary">View Patients</button>
 	            </form>
+	            {% endif %}
+	            {% if request.user.profile.is_admin %}
+	            <br>
+	            <br>
+	            <form action="/management" method="get">
+	                <button type="submit" class="btn btn-lg btn-block btn-secondary">Manage Users</button>
+	            </form>
+	            {% endif %}
 	        </div>
 	        <div class="col-md-2">
 	        </div>
