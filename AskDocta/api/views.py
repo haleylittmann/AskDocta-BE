@@ -31,7 +31,7 @@ def index(request):
 def profiles(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
-    if not request.user.profile.is_admin:
+    if not request.user.is_superuser:
         return redirect('/')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
@@ -46,7 +46,7 @@ def profiles(request):
 def profiles_details(request, request_id):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
-    if not request.user.profile.is_admin:
+    if not request.user.is_superuser:
         return redirect('/')
     if not request.user.profile.phone:
         return redirect('/profile/edit')
