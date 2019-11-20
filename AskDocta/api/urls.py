@@ -42,7 +42,6 @@ urlpatterns = [
     path('sms', views.sms, name='sms'),
     path('patient/new', views.new_patient, name='patient'),
     path('patient', views.patient, name='patient'),
-    path('patient', views.patient, name='patient'),
     path('management', views.profiles, name='profiles'),
     path('management/<int:request_id>', views.profiles_details, name='profiles_details'),
     path('doctor/patients/<int:request_id>', views.doctor_patients_detail, name='doctor_patients_detail'),
