@@ -51,7 +51,8 @@ def profiles_details(request, request_id):
     if not request.user.profile.phone:
         return redirect('/profile/edit')
     if request.method == 'POST':
-        permissions_form = PermissionsForm(request.POST, instance=request.user.profile)
+        profile = Profile.objects.get(id=request_id)
+        permissions_form = PermissionsForm(request.POST, instance=profile)
         if permissions_form.is_valid():
             permissions_form.save()
             return redirect('/management')
